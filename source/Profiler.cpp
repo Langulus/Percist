@@ -10,7 +10,7 @@
 #include <fmt/chrono.h>
 
 #if not LANGULUS_FEATURE(PROFILING)
-   #error This file shouldn't be built at all if LANGULUS_FEATURE_PROFILING is disabled
+   #error This file shouldn't be built at all if LANGULUS_OPTION_PROFILING is disabled
 #endif
 
 
