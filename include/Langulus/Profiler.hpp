@@ -25,7 +25,7 @@
 #endif
 
 /// Make the rest of the code aware, that Langulus::Percist has been included
-#define LANGULUS_LIBRARY_PROFILER() 1
+#define LANGULUS_LIBRARY_PERCIST() 1
 
 
 namespace Langulus::Percist
