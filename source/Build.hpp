@@ -1,5 +1,5 @@
 ///                                                                           
-/// Langulus::Profiler                                                        
+/// Langulus::Percist                                                        
 /// Copyright (c) 2025 Dimo Markov <team@langulus.com>                        
 /// Part of the Langulus framework, see https://langulus.com                  
 ///                                                                           
@@ -13,7 +13,7 @@
    #error This file shouldn't be included if LANGULUS_FEATURE_PROFILING is disabled
 #endif
 
-namespace Langulus::Profiler
+namespace Langulus::Percist
 {
    
    ///                                                                        
@@ -96,25 +96,22 @@ namespace Langulus::Profiler
       }
    };
 #pragma pack(pop)
-
-} // namespace Langulus::Profiler
+}
 
 namespace std
 {
-
    template<>
-   struct hash<::Langulus::Profiler::Build> {
-      using B = ::Langulus::Profiler::Build;
+   struct hash<::Langulus::Percist::Build> {
+      using B = ::Langulus::Percist::Build;
 
       size_t operator()(const B& what) const noexcept {
          size_t ph = hash<decltype(B::properties)> {}(what.properties);
          return ph ^ ((what.bitness << 24) | (what.alignment << 16) | (what.endianness << 8));
       }
    };
+}
 
-} // namespace std
-
-namespace Langulus::Profiler
+namespace Langulus::Percist
 {
    
    /// Generate a build ID                                                    
@@ -214,5 +211,4 @@ namespace Langulus::Profiler
       else
          endianness = 0;
    }
-
-} // namespace Langulus::Profiler
+}

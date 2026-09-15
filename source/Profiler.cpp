@@ -1,5 +1,5 @@
 ///                                                                           
-/// Langulus::Profiler                                                        
+/// Langulus::Percist                                                        
 /// Copyright (c) 2025 Dimo Markov <team@langulus.com>                        
 /// Part of the Langulus framework, see https://langulus.com                  
 ///                                                                           
@@ -14,7 +14,7 @@
 #endif
 
 
-namespace Langulus::Profiler
+namespace Langulus::Percist
 {
 
    State Instance {};
@@ -347,5 +347,4 @@ namespace Langulus::Profiler
 
       out << "</details>\n";
    }
-
-} // namespace Langulus::Profiler
+}

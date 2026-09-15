@@ -1,5 +1,5 @@
 ///                                                                           
-/// Langulus::Profiler                                                        
+/// Langulus::Percist                                                         
 /// Copyright (c) 2025 Dimo Markov <team@langulus.com>                        
 /// Part of the Langulus framework, see https://langulus.com                  
 ///                                                                           
@@ -18,17 +18,17 @@
 #include <unordered_set>
 
 
-#if defined(LANGULUS_EXPORT_ALL) or defined(LANGULUS_EXPORT_PROFILER)
-   #define LANGULUS_API_PROFILER() LANGULUS_EXPORT()
+#if defined(LANGULUS_EXPORT_ALL) or defined(LANGULUS_EXPORT_PERCIST)
+   #define LANGULUS_API_PERCIST() LANGULUS_EXPORT()
 #else
-   #define LANGULUS_API_PROFILER() LANGULUS_IMPORT()
+   #define LANGULUS_API_PERCIST() LANGULUS_IMPORT()
 #endif
 
-/// Make the rest of the code aware, that Langulus::Profiler has been included
+/// Make the rest of the code aware, that Langulus::Percist has been included
 #define LANGULUS_LIBRARY_PROFILER() 1
 
 
-namespace Langulus::Profiler
+namespace Langulus::Percist
 {
 
    using Clock = ::std::chrono::steady_clock;
@@ -64,18 +64,18 @@ namespace Langulus::Profiler
       Time output_interval = 1s;
       TimePoint last_output_timestamp = Clock::now();
 
-      LANGULUS_API(PROFILER) void Compile(Measurement*);
-      LANGULUS_API(PROFILER) void DumpProfilerResults() const;
+      LANGULUS_API(PERCIST) void Compile(Measurement*);
+      LANGULUS_API(PERCIST) void DumpProfilerResults() const;
 
    public:
-      LANGULUS_API(PROFILER) void Configure(String&&, Time interval) noexcept;
-      LANGULUS_API(PROFILER) auto Start(String&&, Build&&) -> Stopper;
-      LANGULUS_API(PROFILER) void End();
+      LANGULUS_API(PERCIST) void Configure(String&&, Time interval) noexcept;
+      LANGULUS_API(PERCIST) auto Start(String&&, Build&&) -> Stopper;
+      LANGULUS_API(PERCIST) void End();
    };
 
 
    /// Global profiler instance                                               
-   LANGULUS_API(PROFILER) extern State Instance;
+   LANGULUS_API(PERCIST) extern State Instance;
 
 
    ///                                                                        
@@ -96,8 +96,8 @@ namespace Langulus::Profiler
    public:
       Measurement() = delete;
 
-      LANGULUS_API(PROFILER) Measurement(String&&, Build&&, Measurement*) noexcept;
-      LANGULUS_API(PROFILER) void Stop() noexcept;
+      LANGULUS_API(PERCIST) Measurement(String&&, Build&&, Measurement*) noexcept;
+      LANGULUS_API(PERCIST) void Stop() noexcept;
    };
 
 
@@ -148,9 +148,9 @@ namespace Langulus::Profiler
       Database children;
 
       Result() = delete;
-      LANGULUS_API(PROFILER) Result(const Measurement&);
-      LANGULUS_API(PROFILER) void Integrate(const Measurement&);
-      LANGULUS_API(PROFILER) void Dump(::std::ofstream&, const Result* parent) const;
+      LANGULUS_API(PERCIST) Result(const Measurement&);
+      LANGULUS_API(PERCIST) void Integrate(const Measurement&);
+      LANGULUS_API(PERCIST) void Dump(::std::ofstream&, const Result* parent) const;
    };
 
 
@@ -165,14 +165,13 @@ namespace Langulus::Profiler
          ::std::forward<Build>(build)
       );
    }
-
-} // namespace Langulus::Profiler
+}
 
 #undef LANGULUS_PROFILE
 
 /// Start scoped profiling                                                    
 /// Add one of these in the beginning of all functions you want to profile    
 #define LANGULUS_PROFILE() \
-   const auto scoped_profiler____________ = ::Langulus::Profiler::Start(LANGULUS_FUNCTION(), ::Langulus::Profiler::Build {})
+   const auto scoped_profiler____________ = ::Langulus::Percist::Start(LANGULUS_FUNCTION(), ::Langulus::Percist::Build {})
 
 #endif

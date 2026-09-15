@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(LangulusProfiler
+project(LangulusPercist
    VERSION         1.0.0
    DESCRIPTION     "Langulus profiler utility"
    HOMEPAGE_URL    https://langulus.com
@@ -15,21 +15,21 @@ if (PROJECT_IS_TOP_LEVEL OR NOT LANGULUS)
 endif()
 
 # Build and install Tester library											
-add_langulus_library(LangulusProfiler
+add_langulus_library(LangulusPercist
    SOURCES  $<$<BOOL:${LANGULUS_OPTION_LOGGING}>:$<TARGET_OBJECTS:LangulusLogger>>
             source/Profiler.cpp
 )
 
-target_compile_definitions(LangulusProfiler
+target_compile_definitions(LangulusPercist
    PRIVATE  LANGULUS_EXPORT_ALL
 )
 
-target_include_directories(LangulusProfiler
+target_include_directories(LangulusPercist
    PUBLIC   $<$<BOOL:${LANGULUS_OPTION_LOGGING}>:$<TARGET_PROPERTY:LangulusLogger,INTERFACE_INCLUDE_DIRECTORIES>>
             include
 )
 
-target_link_libraries(LangulusProfiler
+target_link_libraries(LangulusPercist
    PUBLIC   LangulusCore
             $<$<BOOL:${LANGULUS_OPTION_LOGGING}>:fmt>
 )
