@@ -16,7 +16,7 @@ endif()
 
 # Build and install Tester library											
 add_langulus_library(LangulusPercist
-   SOURCES  $<$<BOOL:${LANGULUS_OPTION_LOGGING}>:$<TARGET_OBJECTS:LangulusLogger>>
+   SOURCES  $<TARGET_OBJECTS:LangulusLogger>
             source/Profiler.cpp
 )
 
@@ -25,7 +25,7 @@ target_compile_definitions(LangulusPercist
 )
 
 target_include_directories(LangulusPercist
-   PUBLIC   $<$<BOOL:${LANGULUS_OPTION_LOGGING}>:$<TARGET_PROPERTY:LangulusLogger,INTERFACE_INCLUDE_DIRECTORIES>>
+   PUBLIC   $<TARGET_PROPERTY:LangulusLogger,INTERFACE_INCLUDE_DIRECTORIES>
             include
 )
 
