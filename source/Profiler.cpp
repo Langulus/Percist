@@ -74,7 +74,7 @@ namespace Langulus::Percist
    /// Dump the results into a text file                                      
    ///   @param b - the build configuration (should be inline-generated)      
    void State::DumpProfilerResults() const {
-      LANGULUS(PROFILE);
+      LglsProfile();
       const auto now = ::std::chrono::system_clock::to_time_t(::std::chrono::system_clock::now());
       const auto timestamp = fmt::format("{:%F %T %Z}", fmt::localtime(now));
 

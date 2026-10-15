@@ -1,12 +1,12 @@
 ///                                                                           
-/// Langulus::Percist                                                        
+/// Langulus::Percist                                                         
 /// Copyright (c) 2025 Dimo Markov <team@langulus.com>                        
 /// Part of the Langulus framework, see https://langulus.com                  
 ///                                                                           
 /// SPDX-License-Identifier: MIT                                              
 ///                                                                           
 #pragma once
-#include <Langulus/Core/Config.hpp>
+#include <Langulus/Core.hpp>
 #include <bitset>
 
 #if not LANGULUS_FEATURE(PROFILING)
@@ -15,11 +15,10 @@
 
 namespace Langulus::Percist
 {
-   
    ///                                                                        
    /// A build configuration                                                  
    ///                                                                        
-#pragma pack(push, 1)
+   #pragma pack(push, 1)
    struct Build {
       enum Property {
          Safe = 0,
@@ -95,7 +94,7 @@ namespace Langulus::Percist
             and endianness == rhs.endianness;
       }
    };
-#pragma pack(pop)
+   #pragma pack(pop)
 }
 
 namespace std
@@ -113,7 +112,6 @@ namespace std
 
 namespace Langulus::Percist
 {
-   
    /// Generate a build ID                                                    
    /// Should always be inlined and invoked from the place we're profiling    
    /// for most accurate results                                              

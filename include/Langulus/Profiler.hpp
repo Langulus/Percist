@@ -6,10 +6,11 @@
 /// SPDX-License-Identifier: MIT                                              
 ///                                                                           
 #pragma once
-#include <Langulus/Logger.hpp>
+#include <Langulus/Core.hpp>
 
-#if LANGULUS_FEATURE(PROFILING)
-#include "../../source/Build.hpp"
+#if LANGULUS(PROFILING)
+#include <Langulus/Logger.hpp>
+#include "Percist/Build.hpp"
 #include <chrono>
 #include <string>
 #include <vector>
@@ -18,24 +19,13 @@
 #include <unordered_set>
 
 
-#if defined(LANGULUS_EXPORT_ALL) or defined(LANGULUS_EXPORT_PERCIST)
-   #define LANGULUS_API_PERCIST() LANGULUS_EXPORT()
-#else
-   #define LANGULUS_API_PERCIST() LANGULUS_IMPORT()
-#endif
-
-/// Make the rest of the code aware, that Langulus::Percist has been included
-#define LANGULUS_LIBRARY_PERCIST() 1
-
-
 namespace Langulus::Percist
 {
-
-   using Clock = ::std::chrono::steady_clock;
+   using Clock     = ::std::chrono::steady_clock;
    using TimePoint = Clock::time_point;
-   using Time = Clock::duration;
-   using String = ::std::string;
-   using Nano = ::std::chrono::duration<long double, ::std::nano>;
+   using Time      = Clock::duration;
+   using String    = ::std::string;
+   using Nano      = ::std::chrono::duration<long double, ::std::nano>;
    using namespace ::std::chrono_literals;
 
    LANGULUS(ALWAYS_INLINED)
@@ -53,7 +43,7 @@ namespace Langulus::Percist
       struct Stopper;
 
       using ResultPtr = ::std::unique_ptr<Result>;
-      using Database = ::std::unordered_map<String, ::std::unordered_map<Build, ResultPtr>>;
+      using Database  = ::std::unordered_map<String, ::std::unordered_map<Build, ResultPtr>>;
 
    private:
       Measurement* main = nullptr;
@@ -75,7 +65,7 @@ namespace Langulus::Percist
 
 
    /// Global profiler instance                                               
-   LANGULUS_API(PERCIST) extern State Instance;
+   LANGULUS_API(PERCIST) extern State Instance; //TODO remove this, use statics instead. move as much as possible into Profiler.cpp or other translation unit
 
 
    ///                                                                        
@@ -155,23 +145,20 @@ namespace Langulus::Percist
 
 
    /// Start doing a measurement                                              
-   ///   @param n - name of the measurement, usually the function name        
-   ///   @param build - the build identifier (should be inline-generated)     
+   ///   @param n name of the measurement, usually the function name          
+   ///   @param build the build identifier (should be inline-generated)       
    ///   @return the auto-stopper                                             
    LANGULUS(ALWAYS_INLINED)
    State::Stopper Start(String&& n, Build&& build) {
-      return Instance.Start(
-         ::std::forward<String>(n),
-         ::std::forward<Build>(build)
-      );
+      return Instance.Start(LglsFwd(n), LglsFwd(build));
    }
 }
 
-#undef LANGULUS_PROFILE
-
 /// Start scoped profiling                                                    
 /// Add one of these in the beginning of all functions you want to profile    
-#define LANGULUS_PROFILE() \
-   const auto scoped_profiler____________ = ::Langulus::Percist::Start(LANGULUS_FUNCTION(), ::Langulus::Percist::Build {})
+#define LglsProfile() \
+   const auto _ = ::Langulus::Percist::Start(LANGULUS_FUNCTION(), ::Langulus::Percist::Build {})
 
+#else
+#define LglsProfile() LANGULUS(NOOP)
 #endif
