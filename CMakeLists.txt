@@ -33,3 +33,15 @@ target_link_libraries(LangulusPercist
    PUBLIC   LangulusCore
             $<TARGET_PROPERTY:LangulusLogger,INTERFACE_LINK_LIBRARIES>
 )
+
+# Include profiler                                                            
+if (LANGULUS_OPTION_BENCHMARK OR LANGULUS_OPTION_PROFILING)
+   fetch_external_module(
+       ctrack
+       GIT_REPOSITORY  https://github.com/Epixu/ctrack.git
+       GIT_TAG         persistence
+       GIT_SHALLOW     TRUE
+   )
+   target_link_libraries(LangulusPercist PUBLIC ctrack)
+endif()
+
