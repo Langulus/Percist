@@ -25,13 +25,11 @@ target_compile_definitions(LangulusPercist
 )
 
 target_include_directories(LangulusPercist
-   PUBLIC   $<TARGET_PROPERTY:LangulusLogger,INTERFACE_INCLUDE_DIRECTORIES>
-            include
+   PUBLIC   include
 )
 
 target_link_libraries(LangulusPercist
-   PUBLIC   LangulusCore
-            $<TARGET_PROPERTY:LangulusLogger,INTERFACE_LINK_LIBRARIES>
+   PUBLIC   LangulusLogger
 )
 
 # Include profiler                                                            
